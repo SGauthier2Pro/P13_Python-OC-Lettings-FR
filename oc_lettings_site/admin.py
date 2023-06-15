@@ -1,8 +1,8 @@
 from django.contrib import admin
 
-from .models import Letting
-from .models import Address
-from .models import Profile
+from lettings.models.letting import Letting
+from lettings.models.address import Address
+from profiles.models.profile import Profile
 
 
 admin.site.register(Letting)
