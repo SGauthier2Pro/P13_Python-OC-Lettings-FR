@@ -37,5 +37,6 @@ jobs:
       with:
         image: sylvaingauthier2pro/p13_python-oc-lettings-fr
         registry: docker.io
+        directory: .
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
