@@ -31,3 +31,10 @@ jobs:
     - name: Run Tests
       run: |
         pytest
+    - name: Build and Push Docker Image
+      uses: mr-smithers-excellent/docker-build-push@v6
+      with:
+        image: sylvaingauthier2pro/p13_python-oc-lettings-fr
+        registry: docker.io
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
