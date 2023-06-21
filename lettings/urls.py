@@ -1,5 +1,6 @@
 from django.urls import path
-from .views import index, letting
+from lettings.views.index import index
+from lettings.views.letting import letting
 
 
 app_name = 'lettings'
