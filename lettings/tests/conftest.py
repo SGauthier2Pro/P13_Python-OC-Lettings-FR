@@ -120,4 +120,3 @@ def get_datas():
     )
 
     return locals()
-

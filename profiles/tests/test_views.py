@@ -148,4 +148,3 @@ class TestProfilesProfileView:
 
         assert response.status_code == 200
         assert '<title>404 Not Found</title>' in str(response.content)
-
