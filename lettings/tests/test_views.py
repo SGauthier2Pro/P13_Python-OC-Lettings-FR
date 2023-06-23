@@ -85,6 +85,7 @@ class TestLettingsLettingView:
 
         response = self.client.get(letting_url)
 
+        assert response.status_code == 200
         assert '<title>' + letting_to_test.title + '</title>' in str(response.content)
         assert '<p>' + str(letting_to_test.address.number) + ' '\
                + letting_to_test.address.street + '</p>' in str(response.content)
