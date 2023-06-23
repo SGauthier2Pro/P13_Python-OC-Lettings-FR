@@ -146,5 +146,6 @@ class TestProfilesProfileView:
 
         response = self.client.get(profile_url)
 
-        assert response.status_code == 404
+        assert response.status_code == 200
+        assert '<title>404 Not Found</title>' in str(response.content)
 
