@@ -133,3 +133,17 @@ class TestLettingsLettingView:
         assert url_home == reverse('index')
         assert profiles_link_found
         assert url_profiles == reverse('profiles:index')
+
+    @pytest.mark.django_db
+    def test_lettings_letting_view_with_non_existing_id(self, get_datas):
+
+        letting_url = reverse(
+            'lettings:letting',
+            kwargs={'letting_id': 27}
+        )
+
+        response = self.client.get(letting_url)
+
+        assert response.status_code == 200
+        assert '<title>404 Not Found</title>' in str(response.content)
+
