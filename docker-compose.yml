@@ -1,6 +1,8 @@
 services:
   web:
     image: sylvaingauthier2pro/p13_python-oc-lettings-fr:latest
+    environment:
+      - DEBUG=0
     build:
       context: .
       dockerfile: Dockerfile
