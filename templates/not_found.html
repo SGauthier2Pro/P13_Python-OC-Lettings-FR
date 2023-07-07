@@ -1,12 +1,28 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>404 Not Found</title>
-</head>
-<body>
-    <h1>404 Not Found !</h1>
-    <p>The page you try to reach doesn't exist !</p>
-    <div><a href="{% url 'index' %}">Home</a></div>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <title>404 Not Found</title>
+        <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    </head>
+    <body>
+        <header>
+                <div class="row">
+                    <div class="ol-md-4 text-center">
+                        <h1>404 Not Found !</h1>
+                    </div>
+                </div>
+        </header>
+        <section>
+            <p>The page you try to reach doesn't exist !</p>
+        </section>
+
+        <div class="text-center">
+            <a class="btn" href="{% url 'index' %}">Home</a>
+        </div>
+        <script src="{% static 'js/jquery-3.6.1.js' %}"></script>
+        <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+    </body>
 </html>

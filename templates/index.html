@@ -1,4 +1,26 @@
-<title>Holiday Homes</title>
-<h1>Welcome to Holiday Homes</h1>
-<div><a href="{% url 'profiles:index' %}">Profiles</a></div>
-<div><a href="{% url 'lettings:index' %}">Lettings</a></div>
+<!DOCTYPE html>
+{% load static %}
+<html>
+    <head>
+        <title>Holiday Homes</title>
+        <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    </head>
+    <body>
+        <header>
+            <div class="row">
+                <div class="ol-md-4 text-center">
+                    <h1 >Welcome to Holiday Homes</h1>
+                </div>
+            </div>
+        </header>
+        <section>
+            <div class="text-center">
+                <a class="btn" href="{% url 'profiles:index' %}">Profiles</a>
+                <a class="btn" href="{% url 'lettings:index' %}">Lettings</a>
+            </div>
+        </section>
+        <script src="{% static 'js/jquery-3.6.1.js' %}"></script>
+        <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+    </body>
+</html>

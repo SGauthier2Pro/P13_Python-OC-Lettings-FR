@@ -1,0 +1,10 @@
+@font-face {
+	font-family: 'fontscorecomttwcenmt';
+	src: local('fontscorecomttwcenmt'), url('./fontscorecomttwcenmt.woff') format('woff');
+}
+/* use this class to attach this font to any element i.e. <p class="fontsforweb_fontid_13141">Text with this font applied</p> */
+.fontsforweb_fontid_13141 {
+	font-family: 'fontscorecomttwcenmt' !important;
+}
+
+/* Font downloaded from FontsForWeb.com */

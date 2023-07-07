@@ -1,8 +1,42 @@
-<title>{{ title }}</title>
-<h1>{{ title }}</h1>
-<p>{{ address.number }} {{ address.street }}</p>
-<p>{{ address.city }}, {{ address.state }} {{ address.zip_code }}</p>
-<p>{{ address.country_iso_code }}</p>
-<div><a href="{% url 'lettings:index' %}">Back</a></div>
-<div><a href="{% url 'index' %}">Home</a></div>
-<div><a href="{% url 'profiles:index' %}">Profiles</a></div>
+<!DOCTYPE html>
+{% load static %}
+<html>
+    <head>
+        <title>{{ title }}</title>
+        <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    </head>
+
+    <body>
+        <header>
+            <div class="row">
+                <div class="text-center">
+                    <h1>{{ title }}</h1>
+                </div>
+            </div>
+        </header>
+        <section>
+            <div class="container-fluid">
+              <div class="row align-item-center justify-content-center">
+                <div class="col-md-6">
+                  <div class="card">
+                      <p><b>Address :</b> {{ address.number }} {{ address.street }}</p>
+                      <p><b>City :</b> {{ address.city }}, {{ address.state }}</p>
+                      <p><b>Zip code :</b> {{ address.zip_code }}</p>
+                      <p><b>Country :</b> {{ address.country_iso_code }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </section>
+        <footer>
+            <div class="text-center">
+                <a class="btn" href="{% url 'lettings:index' %}">Back</a>
+                <a class="btn" href="{% url 'index' %}">Home</a>
+                <a class="btn" href="{% url 'profiles:index' %}">Profiles</a>
+            </div>
+        </footer>
+        <script src="{% static 'js/jquery-3.6.1.js' %}"></script>
+        <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+    </body>
+</html>
