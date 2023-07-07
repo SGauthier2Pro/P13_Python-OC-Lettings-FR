@@ -56,12 +56,13 @@ class TestLettingsIndexView:
         if soup.find('div'):
             for div in soup.find_all('div'):
                 if div.find('a', href=True):
-                    if div.a.string == 'Home':
-                        home_link_found = True
-                        url_home = div.a['href']
-                    elif div.a.string == 'Profiles':
-                        profiles_link_found = True
-                        url_profiles = div.a['href']
+                    for a in div.find_all('a'):
+                        if a.string == 'Home':
+                            home_link_found = True
+                            url_home = a['href']
+                        elif a.string == 'Profiles':
+                            profiles_link_found = True
+                            url_profiles = a['href']
 
         assert home_link_found
         assert url_home == reverse('index')
@@ -87,12 +88,14 @@ class TestLettingsLettingView:
 
         assert response.status_code == 200
         assert '<title>' + letting_to_test.title + '</title>' in str(response.content)
-        assert '<p>' + str(letting_to_test.address.number) + ' '\
+        assert '<p><b>Address :</b> ' + str(letting_to_test.address.number) + ' '\
                + letting_to_test.address.street + '</p>' in str(response.content)
-        assert '<p>' + letting_to_test.address.city + ', '\
-               + letting_to_test.address.state + ' ' \
-               + str(letting_to_test.address.zip_code) + '</p>' in str(response.content)
-        assert '<p>' + letting_to_test.address.country_iso_code + '</p>' in str(response.content)
+        assert '<p><b>City :</b> ' + letting_to_test.address.city + ', '\
+               + letting_to_test.address.state + '</p>' in str(response.content)
+        assert '<p><b>Zip code :</b> ' + str(letting_to_test.address.zip_code) + \
+               '</p>' in str(response.content)
+        assert '<p><b>Country :</b> ' + letting_to_test.address.country_iso_code + \
+               '</p>' in str(response.content)
 
     @pytest.mark.django_db
     def test_nav_links_present_in_lettings_letting_view(self, get_datas):
@@ -117,15 +120,16 @@ class TestLettingsLettingView:
         if soup.find('div'):
             for div in soup.find_all('div'):
                 if div.find('a', href=True):
-                    if div.a.string == 'Home':
-                        home_link_found = True
-                        url_home = div.a['href']
-                    elif div.a.string == 'Profiles':
-                        profiles_link_found = True
-                        url_profiles = div.a['href']
-                    elif div.a.string == 'Back':
-                        back_link_found = True
-                        url_back = div.a['href']
+                    for a in div.find_all('a'):
+                        if a.string == 'Home':
+                            home_link_found = True
+                            url_home = a['href']
+                        elif a.string == 'Profiles':
+                            profiles_link_found = True
+                            url_profiles = a['href']
+                        elif a.string == 'Back':
+                            back_link_found = True
+                            url_back = a['href']
 
         assert back_link_found
         assert url_back == reverse('lettings:index')

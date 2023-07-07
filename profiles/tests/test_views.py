@@ -56,12 +56,13 @@ class TestprofilesIndexView:
         if soup.find('div'):
             for div in soup.find_all('div'):
                 if div.find('a', href=True):
-                    if div.a.string == 'Home':
-                        home_link_found = True
-                        url_home = div.a['href']
-                    elif div.a.string == 'Lettings':
-                        lettings_link_found = True
-                        url_lettings = div.a['href']
+                    for a in div.find_all('a'):
+                        if a.string == 'Home':
+                            home_link_found = True
+                            url_home = a['href']
+                        elif a.string == 'Lettings':
+                            lettings_link_found = True
+                            url_lettings = a['href']
 
         assert home_link_found
         assert url_home == reverse('index')
@@ -87,13 +88,13 @@ class TestProfilesProfileView:
 
         assert response.status_code == 200
         assert '<title>' + profile_to_test.user.username + '</title>' in str(response.content)
-        assert '<p>First name: ' + profile_to_test.user.first_name + '</p>' in str(
+        assert '<p><b>First name:</b> ' + profile_to_test.user.first_name + '</p>' in str(
             response.content)
-        assert '<p>Last name: ' + profile_to_test.user.last_name + '</p>' in str(
+        assert '<p><b>Last name:</b> ' + profile_to_test.user.last_name + '</p>' in str(
             response.content)
-        assert '<p>Email: ' + profile_to_test.user.email + '</p>' in str(
+        assert '<p><b>Email:</b> ' + profile_to_test.user.email + '</p>' in str(
             response.content)
-        assert '<p>Favorite city: ' + profile_to_test.favorite_city + '</p>' in str(
+        assert '<p><b>Favorite city:</b> ' + profile_to_test.favorite_city + '</p>' in str(
             response.content)
 
     @pytest.mark.django_db
@@ -119,15 +120,16 @@ class TestProfilesProfileView:
         if soup.find('div'):
             for div in soup.find_all('div'):
                 if div.find('a', href=True):
-                    if div.a.string == 'Home':
-                        home_link_found = True
-                        url_home = div.a['href']
-                    elif div.a.string == 'Lettings':
-                        lettings_link_found = True
-                        url_lettings = div.a['href']
-                    elif div.a.string == 'Back':
-                        back_link_found = True
-                        url_back = div.a['href']
+                    for a in div.find_all('a'):
+                        if a.string == 'Home':
+                            home_link_found = True
+                            url_home = a['href']
+                        elif a.string == 'Lettings':
+                            lettings_link_found = True
+                            url_lettings = a['href']
+                        elif a.string == 'Back':
+                            back_link_found = True
+                            url_back = a['href']
 
         assert back_link_found
         assert url_back == reverse('profiles:index')
