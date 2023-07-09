@@ -1,6 +1,6 @@
 services:
   web:
-    image: sylvaingauthier2pro/p13_python-oc-lettings-fr:master-d436de7
+    image: sylvaingauthier2pro/p13_python-oc-lettings-fr:master-38f8ac5
     environment:
       - DEBUG=0
     build:
