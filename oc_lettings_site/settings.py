@@ -116,7 +116,5 @@ MEDIA_URL = '/media/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
-
-CSRF_TRUSTED_ORIGINS = ['http://*.amazonaws.com']
+CSRF_COOKIE_SECURE = False
+SESSION_COOKIE_SECURE = False
