@@ -5,8 +5,10 @@ from django.views.static import serve
 from django.conf import settings
 
 from .views.index import index
+from .views.trigger_error import trigger_error
 
 urlpatterns = [
+    path('sentry-debug/', trigger_error),
     path('', index, name='index'),
     path(r'lettings/', include('lettings.urls', namespace='lettings')),
     path(r'profiles/', include('profiles.urls', namespace='profiles')),

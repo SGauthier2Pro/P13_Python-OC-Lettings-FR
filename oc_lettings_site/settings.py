@@ -1,4 +1,6 @@
 import os
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -118,3 +120,20 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 CSRF_COOKIE_SECURE = False
 SESSION_COOKIE_SECURE = False
+
+
+# Sentry configuration
+sentry_sdk.init(
+    dsn="https://b83afb20af3b4d59867bc785b2fc06ab@"
+        "o4505543883816960.ingest.sentry.io/4505543958528000",
+    integrations=[DjangoIntegration()],
+
+    # Set traces_sample_rate to 1.0 to capture 100%
+    # of transactions for performance monitoring.
+    # We recommend adjusting this value in production.
+    traces_sample_rate=1.0,
+
+    # If you wish to associate users to errors (assuming you are using
+    # django.contrib.auth) you may enable sending PII data.
+    send_default_pii=True
+)
