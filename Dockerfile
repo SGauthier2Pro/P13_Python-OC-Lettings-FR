@@ -10,23 +10,23 @@ RUN mkdir -p $DockerHOME
 WORKDIR $DockerHOME
 
 # creation of virtual environment
-RUN python3 -m venv env
+RUN python -m venv env
 
 # set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 # upgrade pip
-RUN . /env/bin/activate && pip install --upgrade pip
+RUN ./env/bin/pip install --upgrade pip
 
 # copy whole project to your docker home directory.
 COPY . $DockerHOME
 # run this command to install all dependencies
-RUN . /env/bin/activate && pip install -r requirements.txt
+RUN ./env/bin/pip install -r requirements.txt
 # port where the Django app runs
 EXPOSE 8000
 # start server
-CMD . /env/bin/activate && exec python manage.py makemigrations
-CMD . /env/bin/activate && exec python manage.py migrate
-CMD . /env/bin/activate && exec python manage.py collectstatic
-CMD . /env/bin/activate && exec python manage.py runserver 0.0.0.0:8000
+CMD ./env/bin/python manage.py makemigrations
+CMD ./env/bin/python manage.py migrate
+CMD ./env/bin/python manage.py collectstatic
+CMD ./env/bin/python manage.py runserver 0.0.0.0:8000
