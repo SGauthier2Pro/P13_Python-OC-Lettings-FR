@@ -39,7 +39,9 @@ jobs:
       uses: mr-smithers-excellent/docker-build-push@v6
       with:
         image: sylvaingauthier2pro/p13_python-oc-lettings-fr
-        buildArgs: [git_hash=$(git rev-parse --short "$GITHUB_SHA"), git_branch=${GITHUB_REF#refs/heads/}]
+        buildArgs: |
+          git_hash=$(git rev-parse --short "$GITHUB_SHA")
+          git_branch=${GITHUB_REF#refs/heads/}
         registry: docker.io
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
