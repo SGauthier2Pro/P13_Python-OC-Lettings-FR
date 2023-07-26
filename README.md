@@ -66,8 +66,9 @@ Dans le reste de la documentation sur le développement local, il est supposé q
 
 #### Panel d'administration
 
-- Aller sur `http://localhost:8000/admin`
-- Connectez-vous avec l'utilisateur `admin`, mot de passe `Abc1234!`
+- Serveur arrêté, taper la commande `python manage.py createsuperuser` puis saisissez les informations requises
+- Relancez le serveur puis aller sur `http://localhost:8000/admin`
+- Connectez-vous avec l'utilisateur le compte créé ci-dessus
 
 ### Windows
 
@@ -75,3 +76,51 @@ Utilisation de PowerShell, comme ci-dessus sauf :
 
 - Pour activer l'environnement virtuel, `.\venv\Scripts\Activate.ps1` 
 - Remplacer `which <my-command>` par `(Get-Command <my-command>).Path`
+
+## Déploiement
+
+Afin que le travail de développement de l'application n'impact pas la production,
+seul les commit sur la branche "master" ne doivent déclencher un deploiement. 
+
+Par conséquent il est important que **chaque modification** apportée à l'application (résolution 
+d'issue, mise en place de nouvelle feature, etc...) donne lieu à la **création d'une branche dédiée**
+et toujours créée à **partir de la branche master**
+
+### Pipeline CI/CD
+
+####Prérequis
+
+Afin que les action s'execute, le repository doit contenir les secrets suivants :
+
+- "SECRET_KEY" : clé du server django
+- "DOCKER_USERNAME" : username du compte DockerHub
+- "DOCKER_PASSWORD" : password du compte DockerHub
+- "AWS_ACCESS_KEY_ID" : id user du compte AWS
+- "AWS_SECRET_ACCESS_KEY" : clé d'accès AWS
+- "DOT_ENV" : les variables d'environnement de production du server django
+
+#### Workflow
+
+Deux script distincts ont donc été écrit dans le workflow:
+
+- Cette action permet un retour immédiat sur la **qualité du code** implémenté
+et atteste qu'**aucune dégradation n'est à noté sur l'existant**.
+
+  - ci_others(Pour tout autres branche que master):
+    - charge l'environnement python 
+    - installe les dépendances via `requirements.txt`
+    - lance le **linting**
+    - lance les test **pytest**
+
+
+
+- Une fois assuré que **le code de la branche fonctionne parfaitement**, il ne restera plus qu'a **merger** votre branch **dans la branche master** pour declencher la **dockerisation** ainsi que le **deploiement**
+  - ci_cd_master(uniquement au commit sur master):
+    - charge l'environnement python 
+    - installe les dépendances via `requirements.txt`
+    - lance le **linting**
+    - lance les test **pytest**
+    - lance le build de l'image docker et la push sur DockerHub
+      - cette action créer une image docker nommée master-<_numéro_du_commit_git_> et la dépose sur le repository dockerhub : https://hub.docker.com/r/sylvaingauthier2pro/p13_python-oc-lettings-fr
+    - lance le déploiement de l'image docker sur AWS
+
