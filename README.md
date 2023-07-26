@@ -80,11 +80,20 @@ Utilisation de PowerShell, comme ci-dessus sauf :
 ## Déploiement
 
 Afin que le travail de développement de l'application n'impact pas la production,
-seul les commit sur la branche "master" ne doivent déclencher un deploiement. 
+seul les commit sur la branche "master" déclenchent un deploiement. 
 
 Par conséquent il est important que **chaque modification** apportée à l'application (résolution 
 d'issue, mise en place de nouvelle feature, etc...) donne lieu à la **création d'une branche dédiée**
 et toujours créée à **partir de la branche master**
+
+### étapes de developpement
+
+le process de developpement est donc le suivant:
+- **creation d'une branche** au nom **explicite** sur la modification à apporter à l'app
+- commit et push vers le repository
+- verification de l'action **ci_others**: ne dois pas être en erreur sinon corriger
+- en absence d'erreur, **merge** de la dite branche vers la branche "**master**"
+- **push** de la branche **master** afin de déclencher le **déploiement**. (à noté que les verification de test et de linting seront obligatoirement executés avant tout build d'image ou deploieemnt chez l'hebèrgeur)
 
 ### Pipeline CI/CD
 
@@ -98,6 +107,8 @@ Afin que les action s'execute, le repository doit contenir les secrets suivants 
 - "AWS_ACCESS_KEY_ID" : id user du compte AWS
 - "AWS_SECRET_ACCESS_KEY" : clé d'accès AWS
 - "DOT_ENV" : les variables d'environnement de production du server django
+  
+(Ces varible étant déjà déclaré, merci de ne pas utiliser sur un autre repo ce qui entrainerait un echec du workflow)
 
 #### Workflow
 
