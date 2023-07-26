@@ -117,7 +117,7 @@ Deux script distincts ont donc été écrit dans le workflow:
 - Cette action permet un retour immédiat sur la **qualité du code** implémenté
 et atteste qu'**aucune dégradation n'est à noté sur l'existant**.
 
-  - ci_others(Pour tout autres branche que master):
+  - ci_others(Au push sur tout autres branche que master):
     - charge l'environnement python 
     - installe les dépendances via `requirements.txt`
     - lance le **linting**
@@ -126,7 +126,7 @@ et atteste qu'**aucune dégradation n'est à noté sur l'existant**.
 
 
 - Une fois assuré que **le code de la branche fonctionne parfaitement**, il ne restera plus qu'a **merger** votre branch **dans la branche master** pour declencher la **dockerisation** ainsi que le **deploiement**
-  - ci_cd_master(uniquement au commit sur master):
+  - ci_cd_master(uniquement au push sur master):
     - charge l'environnement python 
     - installe les dépendances via `requirements.txt`
     - lance le **linting**
